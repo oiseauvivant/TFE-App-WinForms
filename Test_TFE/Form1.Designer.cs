@@ -37,6 +37,11 @@
             this.pnlId1 = new System.Windows.Forms.Panel();
             this.pnlId2 = new System.Windows.Forms.Panel();
             this.tmrClignoPorte = new System.Windows.Forms.Timer(this.components);
+            this.pnlId3 = new System.Windows.Forms.Panel();
+            this.pnlId4 = new System.Windows.Forms.Panel();
+            this.pnlId5 = new System.Windows.Forms.Panel();
+            this.pnlId6 = new System.Windows.Forms.Panel();
+            this.pnlId7 = new System.Windows.Forms.Panel();
             this.SuspendLayout();
             // 
             // btnEnvoi
@@ -87,7 +92,7 @@
             // pnlId1
             // 
             this.pnlId1.BackColor = System.Drawing.Color.Green;
-            this.pnlId1.Location = new System.Drawing.Point(549, 71);
+            this.pnlId1.Location = new System.Drawing.Point(595, 28);
             this.pnlId1.Name = "pnlId1";
             this.pnlId1.Size = new System.Drawing.Size(81, 56);
             this.pnlId1.TabIndex = 5;
@@ -95,9 +100,9 @@
             // pnlId2
             // 
             this.pnlId2.BackColor = System.Drawing.Color.Green;
-            this.pnlId2.Location = new System.Drawing.Point(549, 148);
+            this.pnlId2.Location = new System.Drawing.Point(595, 92);
             this.pnlId2.Name = "pnlId2";
-            this.pnlId2.Size = new System.Drawing.Size(95, 69);
+            this.pnlId2.Size = new System.Drawing.Size(81, 56);
             this.pnlId2.TabIndex = 6;
             // 
             // tmrClignoPorte
@@ -105,11 +110,56 @@
             this.tmrClignoPorte.Interval = 200;
             this.tmrClignoPorte.Tick += new System.EventHandler(this.clignoPorte);
             // 
+            // pnlId3
+            // 
+            this.pnlId3.BackColor = System.Drawing.Color.Green;
+            this.pnlId3.Location = new System.Drawing.Point(595, 156);
+            this.pnlId3.Name = "pnlId3";
+            this.pnlId3.Size = new System.Drawing.Size(81, 56);
+            this.pnlId3.TabIndex = 7;
+            // 
+            // pnlId4
+            // 
+            this.pnlId4.BackColor = System.Drawing.Color.Green;
+            this.pnlId4.Location = new System.Drawing.Point(595, 220);
+            this.pnlId4.Name = "pnlId4";
+            this.pnlId4.Size = new System.Drawing.Size(81, 56);
+            this.pnlId4.TabIndex = 6;
+            // 
+            // pnlId5
+            // 
+            this.pnlId5.BackColor = System.Drawing.Color.Green;
+            this.pnlId5.Location = new System.Drawing.Point(595, 284);
+            this.pnlId5.Name = "pnlId5";
+            this.pnlId5.Size = new System.Drawing.Size(81, 56);
+            this.pnlId5.TabIndex = 6;
+            // 
+            // pnlId6
+            // 
+            this.pnlId6.BackColor = System.Drawing.Color.Green;
+            this.pnlId6.Location = new System.Drawing.Point(595, 348);
+            this.pnlId6.Name = "pnlId6";
+            this.pnlId6.Size = new System.Drawing.Size(81, 56);
+            this.pnlId6.TabIndex = 6;
+            // 
+            // pnlId7
+            // 
+            this.pnlId7.BackColor = System.Drawing.Color.Green;
+            this.pnlId7.Location = new System.Drawing.Point(595, 412);
+            this.pnlId7.Name = "pnlId7";
+            this.pnlId7.Size = new System.Drawing.Size(81, 56);
+            this.pnlId7.TabIndex = 6;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(835, 513);
+            this.Controls.Add(this.pnlId7);
+            this.Controls.Add(this.pnlId6);
+            this.Controls.Add(this.pnlId5);
+            this.Controls.Add(this.pnlId4);
+            this.Controls.Add(this.pnlId3);
             this.Controls.Add(this.pnlId2);
             this.Controls.Add(this.pnlId1);
             this.Controls.Add(this.lblTotal);
@@ -134,6 +184,11 @@
         private System.Windows.Forms.Panel pnlId1;
         private System.Windows.Forms.Panel pnlId2;
         private System.Windows.Forms.Timer tmrClignoPorte;
+        private System.Windows.Forms.Panel pnlId3;
+        private System.Windows.Forms.Panel pnlId4;
+        private System.Windows.Forms.Panel pnlId5;
+        private System.Windows.Forms.Panel pnlId6;
+        private System.Windows.Forms.Panel pnlId7;
     }
 }
 

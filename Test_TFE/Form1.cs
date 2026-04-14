@@ -95,6 +95,26 @@ namespace Test_TFE
                     {
                         pnlId2.BackColor = Color.Red; 
                     }
+                    else if (id == "3") 
+                    {
+                        pnlId3.BackColor = Color.Red;
+                    }
+                    else if (id == "4") 
+                    {
+                        pnlId4.BackColor = Color.Red;
+                    }
+                    else if (id == "5") 
+                    {
+                        pnlId5.BackColor = Color.Red;
+                    }
+                    else if (id == "6")
+                    {
+                        pnlId6.BackColor = Color.Red;
+                    }
+                    else if (id == "7")
+                    {
+                        pnlId7.BackColor = Color.Red;
+                    }
 
                     tmrClignoPorte.Start();
                 }));
@@ -108,6 +128,11 @@ namespace Test_TFE
         {
             pnlId1.BackColor = Color.Green;
             pnlId2.BackColor = Color.Green;
+            pnlId3.BackColor = Color.Green;
+            pnlId4.BackColor = Color.Green;
+            pnlId5.BackColor = Color.Green;
+            pnlId6.BackColor = Color.Green;
+            pnlId7.BackColor = Color.Green;
             tmrClignoPorte.Stop();
         }
     }
