@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.btnEnvoi = new System.Windows.Forms.Button();
             this.txtEnvoi = new System.Windows.Forms.TextBox();
             this.lblsortie = new System.Windows.Forms.Label();
@@ -42,6 +43,9 @@
             this.pnlId5 = new System.Windows.Forms.Panel();
             this.pnlId6 = new System.Windows.Forms.Panel();
             this.pnlId7 = new System.Windows.Forms.Panel();
+            this.cbPorts = new System.Windows.Forms.ComboBox();
+            this.btnConnexion = new System.Windows.Forms.Button();
+            this.btnDeconnexion = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnEnvoi
@@ -150,11 +154,42 @@
             this.pnlId7.Size = new System.Drawing.Size(81, 56);
             this.pnlId7.TabIndex = 6;
             // 
+            // cbPorts
+            // 
+            this.cbPorts.FormattingEnabled = true;
+            this.cbPorts.Location = new System.Drawing.Point(358, 56);
+            this.cbPorts.Name = "cbPorts";
+            this.cbPorts.Size = new System.Drawing.Size(121, 21);
+            this.cbPorts.TabIndex = 8;
+            // 
+            // btnConnexion
+            // 
+            this.btnConnexion.Location = new System.Drawing.Point(485, 56);
+            this.btnConnexion.Name = "btnConnexion";
+            this.btnConnexion.Size = new System.Drawing.Size(75, 23);
+            this.btnConnexion.TabIndex = 9;
+            this.btnConnexion.Text = "Connexion";
+            this.btnConnexion.UseVisualStyleBackColor = true;
+            this.btnConnexion.Click += new System.EventHandler(this.Connexion);
+            // 
+            // btnDeconnexion
+            // 
+            this.btnDeconnexion.Location = new System.Drawing.Point(485, 85);
+            this.btnDeconnexion.Name = "btnDeconnexion";
+            this.btnDeconnexion.Size = new System.Drawing.Size(84, 23);
+            this.btnDeconnexion.TabIndex = 10;
+            this.btnDeconnexion.Text = "Déconnexion";
+            this.btnDeconnexion.UseVisualStyleBackColor = true;
+            this.btnDeconnexion.Click += new System.EventHandler(this.Deconnexion);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(835, 513);
+            this.Controls.Add(this.btnDeconnexion);
+            this.Controls.Add(this.btnConnexion);
+            this.Controls.Add(this.cbPorts);
             this.Controls.Add(this.pnlId7);
             this.Controls.Add(this.pnlId6);
             this.Controls.Add(this.pnlId5);
@@ -167,8 +202,10 @@
             this.Controls.Add(this.lblsortie);
             this.Controls.Add(this.txtEnvoi);
             this.Controls.Add(this.btnEnvoi);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Visualisation";
+            this.Shown += new System.EventHandler(this.Detection);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -189,6 +226,9 @@
         private System.Windows.Forms.Panel pnlId5;
         private System.Windows.Forms.Panel pnlId6;
         private System.Windows.Forms.Panel pnlId7;
+        private System.Windows.Forms.ComboBox cbPorts;
+        private System.Windows.Forms.Button btnConnexion;
+        private System.Windows.Forms.Button btnDeconnexion;
     }
 }
 

@@ -24,25 +24,79 @@ namespace Test_TFE
         int entree = 0;
         int sortie = 0;
 
+        public class PortItem
+        {
+            public string Name { get; set; }
+            public override string ToString() => Name;
+        }
+
         public Form1()
         {
             InitializeComponent();
             //id=1;sens=entree;nbr=1
 
-
-            serialPort = new SerialPort("COM5", 115200, Parity.None, 8, StopBits.One);
-            serialPort.DataReceived += recevoir;
-            try
-            {
-                serialPort.Open();
-                //MessageBox.Show("Port série ouvert !");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Erreur ouverture port : " + ex.Message);
-            }
+            LoadPorts();
             
+        }
+        private void Detection(object sender, EventArgs e)
+        {
+            DetectionAutoESP32();
+        }
 
+        private void LoadPorts()
+        {
+            string[] ports = SerialPort.GetPortNames();
+
+            var list = ports
+                .Select(p => new PortItem { Name = p })
+                .ToList();
+
+            cbPorts.DataSource = list;
+            cbPorts.DisplayMember = "Name";
+        }
+
+        private void DetectionAutoESP32()
+        {
+            foreach (PortItem port in cbPorts.Items)
+            {
+                if (PingESP(port.Name))
+                {
+                    //connexion réussi
+                    serialPort = new SerialPort(port.Name, 115200);
+                    serialPort.Open();
+                    this.Text += " - Connecté à " + port.Name;
+                    MessageBox.Show("Connexion réussie au port " + port.Name);
+                    
+                    cbPorts.SelectedItem = port; // Sélectionne le port dans le ComboBox
+                    return;
+                }
+            } 
+
+            MessageBox.Show("Aucun ESP32 module central détecté !");
+        }
+
+        private bool PingESP(string portName)
+        {
+                try
+                {
+                    using (SerialPort testPort = new SerialPort(portName, 115200))
+                    {
+                        testPort.ReadTimeout = 500; // Timeout de lecture de 0.5 seconde
+                        testPort.Open();
+                        //envoi du ping
+                        testPort.WriteLine("PING");
+
+                        string response = testPort.ReadLine();
+
+                        return response.Trim() == "PONG";
+                    }
+                }
+                catch
+                {
+                    
+                }
+
+            return false; // Si une exception se produit, le port n'est pas celui de l'ESP32
         }
 
         private void envoyer(object sender, EventArgs e)
@@ -120,8 +174,6 @@ namespace Test_TFE
                 }));
 
             }
-
-            
         }
 
         private void clignoPorte(object sender, EventArgs e)
@@ -134,6 +186,49 @@ namespace Test_TFE
             pnlId6.BackColor = Color.Green;
             pnlId7.BackColor = Color.Green;
             tmrClignoPorte.Stop();
+        }
+
+        private void Connexion(object sender, EventArgs e)
+        {
+            if (serialPort != null && serialPort.IsOpen)
+            {
+                MessageBox.Show("Déjà connecté.");
+                return;
+            }
+            else if (cbPorts.SelectedItem is PortItem selectedPort)
+            {
+                try
+                {
+                    serialPort = new SerialPort(selectedPort.Name, 115200);
+                    serialPort.DataReceived += recevoir;
+                    serialPort.Open();
+                    this.Text += " - Connecté à " + selectedPort.Name;
+                    MessageBox.Show("Connexion réussie au port " + selectedPort.Name);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Erreur de connexion: " + ex.Message);
+                }
+            }
+        }
+
+        private void Deconnexion(object sender, EventArgs e)
+        {
+            try
+            {
+                if (serialPort != null && serialPort.IsOpen)
+                {
+                    serialPort.Close();
+                    MessageBox.Show("Déconnexion réussie.");
+                }
+                else                 {
+                    MessageBox.Show("Vous êtes déjà déconnecté.");
+                }
+            }
+            catch
+            {
+
+            }
         }
     }
 }
