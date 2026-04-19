@@ -38,6 +38,32 @@ namespace Test_TFE
             LoadPorts();
             
         }
+
+        protected override void WndProc(ref Message m)
+        {
+            const int WM_DEVICECHANGE = 0x0219;
+            const int DBT_DEVICEARRIVAL = 0x8000;
+            const int DBT_DEVICEREMOVECOMPLETE = 0x8004;
+
+            if (m.Msg == WM_DEVICECHANGE)
+            {
+                if (m.WParam.ToInt32() == DBT_DEVICEARRIVAL)
+                {
+                    // Un appareil vient d'être branché
+                    LoadPorts();
+                    DetectionAutoESP32();
+                }
+                else if (m.WParam.ToInt32() == DBT_DEVICEREMOVECOMPLETE)
+                {
+                    // Un appareil vient d'être débranché
+                    this.Text = "Déconnecté";
+                    LoadPorts();
+                }
+            }
+
+            base.WndProc(ref m);
+        }
+
         private void Detection(object sender, EventArgs e)
         {
             DetectionAutoESP32();
@@ -64,7 +90,7 @@ namespace Test_TFE
                     //connexion réussi
                     serialPort = new SerialPort(port.Name, 115200);
                     serialPort.Open();
-                    this.Text += " - Connecté à " + port.Name;
+                    this.Text = "Connecté à " + port.Name;
                     MessageBox.Show("Connexion réussie au port " + port.Name);
                     
                     cbPorts.SelectedItem = port; // Sélectionne le port dans le ComboBox
@@ -202,7 +228,7 @@ namespace Test_TFE
                     serialPort = new SerialPort(selectedPort.Name, 115200);
                     serialPort.DataReceived += recevoir;
                     serialPort.Open();
-                    this.Text += " - Connecté à " + selectedPort.Name;
+                    this.Text = "Connecté à " + selectedPort.Name;
                     MessageBox.Show("Connexion réussie au port " + selectedPort.Name);
                 }
                 catch (Exception ex)
@@ -219,6 +245,7 @@ namespace Test_TFE
                 if (serialPort != null && serialPort.IsOpen)
                 {
                     serialPort.Close();
+                    this.Text = "Déconnecté";
                     MessageBox.Show("Déconnexion réussie.");
                 }
                 else                 {
