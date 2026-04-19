@@ -107,7 +107,7 @@ namespace Test_TFE
                 {
                     using (SerialPort testPort = new SerialPort(portName, 115200))
                     {
-                        testPort.ReadTimeout = 500; // Timeout de lecture de 0.5 seconde
+                        testPort.ReadTimeout = 1000; // Timeout de lecture de 1 seconde
                         testPort.Open();
                         //envoi du ping
                         testPort.WriteLine("PING");
