@@ -23,6 +23,9 @@ namespace Test_TFE
         int total = 0;
         int entree = 0;
         int sortie = 0;
+        bool modeEdition = false;
+
+        private List<Panel> listePanelsPorte = new List<Panel>();
 
         public class PortItem
         {
@@ -37,6 +40,38 @@ namespace Test_TFE
 
             LoadPorts();
             
+        }
+
+        private void CreerPortePanels()
+        {
+            PnlPiece.Controls.Clear();
+            listePanelsPorte.Clear();
+
+            int count = (int)NUPNbrPorte.Value;
+
+            for (int i = 0; i < count; i++)
+            {
+                Panel p = new Panel();
+                p.Width = 40;
+                p.Height = 40;
+                p.BackColor = Color.Gray;
+                p.BorderStyle = BorderStyle.FixedSingle;
+
+                if (i < 5)
+                {
+                    p.Left = 20 + (i * 40);
+                    p.Top = 20;
+                }
+                else if (i >= 5)
+                {
+                    p.Left = 20 + ((i - 5) * 40);
+                    p.Top = 20 + 40;
+                }
+
+                listePanelsPorte.Add(p);
+
+                PnlPiece.Controls.Add(p);
+            }
         }
 
         protected override void WndProc(ref Message m)
@@ -167,35 +202,6 @@ namespace Test_TFE
 
                     lblTotal.Text = "Total: " + total.ToString();
 
-                    if (id == "1")
-                    {
-                        pnlId1.BackColor = Color.Red;
-                    }
-                    else if (id == "2")
-                    {
-                        pnlId2.BackColor = Color.Red; 
-                    }
-                    else if (id == "3") 
-                    {
-                        pnlId3.BackColor = Color.Red;
-                    }
-                    else if (id == "4") 
-                    {
-                        pnlId4.BackColor = Color.Red;
-                    }
-                    else if (id == "5") 
-                    {
-                        pnlId5.BackColor = Color.Red;
-                    }
-                    else if (id == "6")
-                    {
-                        pnlId6.BackColor = Color.Red;
-                    }
-                    else if (id == "7")
-                    {
-                        pnlId7.BackColor = Color.Red;
-                    }
-
                     tmrClignoPorte.Start();
                 }));
 
@@ -204,13 +210,6 @@ namespace Test_TFE
 
         private void clignoPorte(object sender, EventArgs e)
         {
-            pnlId1.BackColor = Color.Green;
-            pnlId2.BackColor = Color.Green;
-            pnlId3.BackColor = Color.Green;
-            pnlId4.BackColor = Color.Green;
-            pnlId5.BackColor = Color.Green;
-            pnlId6.BackColor = Color.Green;
-            pnlId7.BackColor = Color.Green;
             tmrClignoPorte.Stop();
         }
 
@@ -256,6 +255,38 @@ namespace Test_TFE
             {
 
             }
+        }
+
+        private void NUPPorteChange(object sender, EventArgs e)
+        {
+            CreerPortePanels();
+        }
+
+        private void LoadForm(object sender, EventArgs e)
+        {
+            CreerPortePanels();
+        }
+
+        private void mode_Edition_click(object sender, EventArgs e)
+        {
+            modeEdition = !modeEdition;
+
+            if (modeEdition) 
+            {
+                btnEdition.BackColor = Color.Orange;
+                pnlTaillePiece.Enabled = true;
+            }
+            else
+            {
+                btnEdition.BackColor = SystemColors.Control;
+                pnlTaillePiece.Enabled = false;
+            }
+        }
+
+        private void validerTaillePiece(object sender, EventArgs e)
+        {
+            PnlPiece.Width = int.Parse(txtTailleX.Text);
+            PnlPiece.Height = int.Parse(txtTailleY.Text);
         }
     }
 }
