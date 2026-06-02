@@ -19,7 +19,6 @@ namespace Test_TFE
         string[] parties;
         string id;
         string sens;
-        string nbr;
         int total = 0;
         int entree = 0;
         int sortie = 0;
@@ -179,7 +178,7 @@ namespace Test_TFE
         {
             if (serialPort != null && serialPort.IsOpen)
             {
-                string messageRecu = serialPort.ReadLine(); // Lit la ligne reçue
+                string messageRecu = serialPort.ReadLine().Trim(); // Lit la ligne reçue
                 this.Invoke(new Action(() =>
                 {
                     txtEnvoi.Text = messageRecu; // Affiche le message reçu dans le TextBox
@@ -187,15 +186,14 @@ namespace Test_TFE
 
                     id = parties[0].Split('=')[1];
                     sens = parties[1].Split('=')[1];
-                    nbr = parties[2].Split('=')[1];
 
-                    if (sens == "entree")
+                    if (sens == "1")
                     {
                         total++;
                         entree++;
                         lblentree.Text = "Entrées: " + entree.ToString();
                     }
-                    else if (sens == "sortie")
+                    else if (sens == "0")
                     {
                         total--;
                         sortie++;
