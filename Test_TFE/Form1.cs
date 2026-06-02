@@ -243,6 +243,8 @@ namespace Test_TFE
             {
                 if (serialPort != null && serialPort.IsOpen)
                 {
+                    serialPort.WriteLine("DECONNEXION"); // Envoie un message de déconnexion à l'ESP32
+                    serialPort.BaseStream.Flush();
                     serialPort.Close();
                     this.Text = "Déconnecté";
                     MessageBox.Show("Déconnexion réussie.");
