@@ -124,6 +124,7 @@ namespace Test_TFE
                 {
                     //connexion réussi
                     serialPort = new SerialPort(port.Name, 115200);
+                    serialPort.DataReceived += recevoir;
                     serialPort.Open();
                     this.Text = "Connecté à " + port.Name;
                     MessageBox.Show("Connexion réussie au port " + port.Name);
@@ -144,12 +145,13 @@ namespace Test_TFE
                     {
                         testPort.ReadTimeout = 1000; // Timeout de lecture de 1 seconde
                         testPort.Open();
-                        //envoi du ping
-                        testPort.WriteLine("PING");
+                        testPort.DiscardInBuffer();
+                        testPort.DiscardOutBuffer();
+                        testPort.WriteLine("PING"); //envoi du ping
 
-                        string response = testPort.ReadLine();
+                        string response = testPort.ReadLine().Trim();
 
-                        return response.Trim() == "PONG";
+                        return response == "PONG";
                     }
                 }
                 catch
