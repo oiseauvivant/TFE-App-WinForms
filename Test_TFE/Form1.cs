@@ -4,6 +4,7 @@ using System.Data;
 using System.Drawing;
 using System.IO.Ports;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Test_TFE
@@ -20,9 +21,12 @@ namespace Test_TFE
         int sortie = 0;
         bool modeEdition = false;
         bool modeEditionPortes = false;
+        bool devMode = false;
         private bool dragging = false;
         private Point dragStart;
         private Panel panelEnDeplacement;
+
+        private HashSet<Keys> touchesEnfoncees = new HashSet<Keys>();
 
 
         private List<Panel> listePanelsPorte = new List<Panel>();
@@ -81,6 +85,7 @@ namespace Test_TFE
                 lbl.MouseDown += Panel_MouseDown;
                 lbl.MouseMove += Panel_MouseMove;
                 lbl.MouseUp += Panel_MouseUp;
+                lbl.ContextMenuStrip = cmsMenuPorte; // Associe le menu contextuel à chaque label
 
                 p.Controls.Add(lbl);
 
@@ -88,6 +93,7 @@ namespace Test_TFE
                 p.MouseDown += Panel_MouseDown;
                 p.MouseMove += Panel_MouseMove;
                 p.MouseUp += Panel_MouseUp;
+                p.ContextMenuStrip = cmsMenuPorte; // Associe le menu contextuel à chaque panel
 
                 listePanelsPorte.Add(p);
                 PnlPiece.Controls.Add(p);
@@ -101,7 +107,6 @@ namespace Test_TFE
                 listePanelsPorte.RemoveAt(listePanelsPorte.Count - 1);
             }
         }
-
 
         protected override void WndProc(ref Message m)
         {
@@ -208,17 +213,29 @@ namespace Test_TFE
                             total++;
                             entree++;
                             lblentree.Text = "Entrées: " + entree.ToString();
+
+                            int index = int.Parse(id);
+
+                            if (index >= 0 && index < listePanelsPorte.Count)
+                            {
+                                clignoPorteEntree(listePanelsPorte[index]);
+                            }
                         }
                         else if (sens == "0")
                         {
                             total--;
                             sortie++;
                             lblsortie.Text = "Sorties: " + sortie.ToString();
+
+                            int index = int.Parse(id);
+
+                            if (index >= 0 && index < listePanelsPorte.Count)
+                            {
+                                clignoPorteSortie(listePanelsPorte[index]);
+                            }
                         }
 
                         lblTotal.Text = "Total: " + total.ToString();
-
-                        tmrClignoPorte.Start();
                     }
 
                     if (messageRecu.StartsWith("SYNCHRO"))
@@ -244,9 +261,24 @@ namespace Test_TFE
             }
         }
 
-        private void clignoPorte(object sender, EventArgs e)
+        private async void clignoPorteEntree(Panel p)
         {
-            tmrClignoPorte.Stop();
+            Color original = p.BackColor;
+
+            p.BackColor = Color.Green;
+            await Task.Delay(500);
+
+            p.BackColor = original;
+        }
+
+        private async void clignoPorteSortie(Panel p)
+        {
+            Color original = p.BackColor;
+
+            p.BackColor = Color.Red;
+            await Task.Delay(500);
+
+            p.BackColor = original;
         }
 
         private void Deconnexion(object sender, EventArgs e)
@@ -387,6 +419,124 @@ namespace Test_TFE
             else
             {
                 btnDeplacePortes.BackColor = SystemColors.Control;
+            }
+        }
+
+        private void cmsPorte_Ouverture(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (!modeEdition && !modeEditionPortes)
+            {
+                e.Cancel = true; // Empêche l'ouverture du menu si aucun mode d'édition n'est actif
+                return;
+            }
+
+            // Récupérer la porte ciblée
+            Panel p = (cmsMenuPorte.SourceControl as Panel)
+                      ?? (cmsMenuPorte.SourceControl as Label)?.Parent as Panel;
+
+            if (p == null)
+            {
+                e.Cancel = true;
+                return;
+            }
+
+            // Remplir le ComboBox avec tous les numéros
+            cbChangerNumeroPorte.Items.Clear();
+            for (int i = 0; i < listePanelsPorte.Count; i++)
+                cbChangerNumeroPorte.Items.Add(i);
+
+            // Sélectionner le numéro actuel
+            cbChangerNumeroPorte.SelectedItem = (int)p.Tag;
+        }
+
+        private void supprimerPorte_click(object sender, EventArgs e)
+        {
+            if (listePanelsPorte.Count <= 1)
+            {
+                MessageBox.Show("Vous ne pouvez pas supprimer la dernière porte");
+                return;
+            }
+
+            Panel p = (cmsMenuPorte.SourceControl as Panel)
+              ?? (cmsMenuPorte.SourceControl as Label)?.Parent as Panel;
+
+            if (p == null) return;
+
+            // Retirer du panel parent
+            PnlPiece.Controls.Remove(p);
+
+            // Retirer de la liste interne
+            listePanelsPorte.Remove(p);
+
+            // Réindexer toutes les portes restantes
+            for (int i = 0; i < listePanelsPorte.Count; i++)
+            {
+                listePanelsPorte[i].Tag = i;
+                ((Label)listePanelsPorte[i].Controls[0]).Text = i.ToString();
+            }
+
+            // Mettre à jour le NumericUpDown
+            NUPNbrPorte.Value = listePanelsPorte.Count;
+        }
+
+        private void cbChangerNumeroPorte_Click(object sender, EventArgs e)
+        {
+            // Récupérer la porte ciblée
+            Panel p = (cmsMenuPorte.SourceControl as Panel)
+                      ?? (cmsMenuPorte.SourceControl as Label)?.Parent as Panel;
+
+            cmsMenuPorte.Close();
+
+            if (p == null) return;
+
+            int ancienNum = (int)p.Tag;
+            int nouveauNum = (int)cbChangerNumeroPorte.SelectedItem;
+
+            if (nouveauNum == ancienNum) return;
+
+            // Récupérer la porte qui a déjà ce numéro
+            Panel autre = listePanelsPorte[nouveauNum];
+
+            // Échanger les numéros
+            p.Tag = nouveauNum;
+            autre.Tag = ancienNum;
+
+            ((Label)p.Controls[0]).Text = nouveauNum.ToString();
+            ((Label)autre.Controls[0]).Text = ancienNum.ToString();
+
+            // Réordonner la liste interne
+            listePanelsPorte[ancienNum] = autre;
+            listePanelsPorte[nouveauNum] = p;
+
+            cmsMenuPorte.Close();
+        }
+
+        private void devMode_KeyDown(object sender, KeyEventArgs e)
+        {
+            touchesEnfoncees.Add(e.KeyCode);
+            verifierToucheDevMode();
+
+        }
+
+        private void devMode_KeyUp(object sender, KeyEventArgs e)
+        {
+            touchesEnfoncees.Remove(e.KeyCode);
+        }
+
+        private void verifierToucheDevMode()
+        {
+            if (touchesEnfoncees.Contains(Keys.ControlKey) && touchesEnfoncees.Contains(Keys.K))
+            {
+                devMode = !devMode;
+            }
+
+            if (devMode)
+            {
+                txtReception.Visible = true;
+            }
+            else
+            {
+                txtReception.Visible = false;
             }
         }
     }

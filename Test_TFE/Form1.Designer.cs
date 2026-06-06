@@ -34,7 +34,6 @@
             this.lblsortie = new System.Windows.Forms.Label();
             this.lblentree = new System.Windows.Forms.Label();
             this.lblTotal = new System.Windows.Forms.Label();
-            this.tmrClignoPorte = new System.Windows.Forms.Timer(this.components);
             this.cbPorts = new System.Windows.Forms.ComboBox();
             this.btnConnexion = new System.Windows.Forms.Button();
             this.btnDeconnexion = new System.Windows.Forms.Button();
@@ -53,6 +52,7 @@
             this.cmsMenuPorte = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.supprmierPorte = new System.Windows.Forms.ToolStripMenuItem();
             this.changerNumeroPorte = new System.Windows.Forms.ToolStripMenuItem();
+            this.cbChangerNumeroPorte = new System.Windows.Forms.ToolStripComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.NUPNbrPorte)).BeginInit();
             this.pnlTaillePiece.SuspendLayout();
             this.cmsMenuPorte.SuspendLayout();
@@ -65,6 +65,7 @@
             this.txtReception.Name = "txtReception";
             this.txtReception.Size = new System.Drawing.Size(158, 131);
             this.txtReception.TabIndex = 1;
+            this.txtReception.Visible = false;
             // 
             // lblsortie
             // 
@@ -93,11 +94,6 @@
             this.lblTotal.TabIndex = 4;
             this.lblTotal.Text = "Total :";
             // 
-            // tmrClignoPorte
-            // 
-            this.tmrClignoPorte.Interval = 200;
-            this.tmrClignoPorte.Tick += new System.EventHandler(this.clignoPorte);
-            // 
             // cbPorts
             // 
             this.cbPorts.FormattingEnabled = true;
@@ -105,6 +101,7 @@
             this.cbPorts.Name = "cbPorts";
             this.cbPorts.Size = new System.Drawing.Size(121, 21);
             this.cbPorts.TabIndex = 8;
+            this.cbPorts.TabStop = false;
             // 
             // btnConnexion
             // 
@@ -140,6 +137,7 @@
             0,
             0});
             this.NUPNbrPorte.Name = "NUPNbrPorte";
+            this.NUPNbrPorte.ReadOnly = true;
             this.NUPNbrPorte.Size = new System.Drawing.Size(40, 20);
             this.NUPNbrPorte.TabIndex = 11;
             this.NUPNbrPorte.Value = new decimal(new int[] {
@@ -264,19 +262,31 @@
             this.supprmierPorte,
             this.changerNumeroPorte});
             this.cmsMenuPorte.Name = "cmsMenuPorte";
-            this.cmsMenuPorte.Size = new System.Drawing.Size(181, 70);
+            this.cmsMenuPorte.Size = new System.Drawing.Size(177, 48);
+            this.cmsMenuPorte.Opening += new System.ComponentModel.CancelEventHandler(this.cmsPorte_Ouverture);
             // 
             // supprmierPorte
             // 
             this.supprmierPorte.Name = "supprmierPorte";
-            this.supprmierPorte.Size = new System.Drawing.Size(180, 22);
+            this.supprmierPorte.Size = new System.Drawing.Size(176, 22);
             this.supprmierPorte.Text = "Supprimer";
+            this.supprmierPorte.Click += new System.EventHandler(this.supprimerPorte_click);
             // 
             // changerNumeroPorte
             // 
+            this.changerNumeroPorte.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cbChangerNumeroPorte});
             this.changerNumeroPorte.Name = "changerNumeroPorte";
-            this.changerNumeroPorte.Size = new System.Drawing.Size(180, 22);
+            this.changerNumeroPorte.Size = new System.Drawing.Size(176, 22);
             this.changerNumeroPorte.Text = "Changer le numéro";
+            // 
+            // cbChangerNumeroPorte
+            // 
+            this.cbChangerNumeroPorte.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbChangerNumeroPorte.MaxDropDownItems = 10;
+            this.cbChangerNumeroPorte.Name = "cbChangerNumeroPorte";
+            this.cbChangerNumeroPorte.Size = new System.Drawing.Size(121, 23);
+            this.cbChangerNumeroPorte.SelectedIndexChanged += new System.EventHandler(this.cbChangerNumeroPorte_Click);
             // 
             // Form1
             // 
@@ -296,11 +306,14 @@
             this.Controls.Add(this.lblsortie);
             this.Controls.Add(this.txtReception);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
             this.Name = "Form1";
             this.Text = "Visualisation";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.LoadForm);
             this.Shown += new System.EventHandler(this.DetectionAutoESP32);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.devMode_KeyDown);
+            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.devMode_KeyUp);
             ((System.ComponentModel.ISupportInitialize)(this.NUPNbrPorte)).EndInit();
             this.pnlTaillePiece.ResumeLayout(false);
             this.pnlTaillePiece.PerformLayout();
@@ -315,7 +328,6 @@
         private System.Windows.Forms.Label lblsortie;
         private System.Windows.Forms.Label lblentree;
         private System.Windows.Forms.Label lblTotal;
-        private System.Windows.Forms.Timer tmrClignoPorte;
         private System.Windows.Forms.ComboBox cbPorts;
         private System.Windows.Forms.Button btnConnexion;
         private System.Windows.Forms.Button btnDeconnexion;
@@ -334,6 +346,7 @@
         private System.Windows.Forms.ContextMenuStrip cmsMenuPorte;
         private System.Windows.Forms.ToolStripMenuItem supprmierPorte;
         private System.Windows.Forms.ToolStripMenuItem changerNumeroPorte;
+        private System.Windows.Forms.ToolStripComboBox cbChangerNumeroPorte;
     }
 }
 
