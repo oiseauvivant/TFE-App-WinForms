@@ -30,8 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            this.btnEnvoi = new System.Windows.Forms.Button();
-            this.txtEnvoi = new System.Windows.Forms.TextBox();
+            this.txtReception = new System.Windows.Forms.TextBox();
             this.lblsortie = new System.Windows.Forms.Label();
             this.lblentree = new System.Windows.Forms.Label();
             this.lblTotal = new System.Windows.Forms.Label();
@@ -43,56 +42,52 @@
             this.PnlPiece = new System.Windows.Forms.Panel();
             this.btnEdition = new System.Windows.Forms.Button();
             this.pnlTaillePiece = new System.Windows.Forms.Panel();
+            this.lblNbrPorte = new System.Windows.Forms.Label();
             this.lblTailleX = new System.Windows.Forms.Label();
             this.lblTailleY = new System.Windows.Forms.Label();
             this.txtTailleY = new System.Windows.Forms.TextBox();
             this.txtTailleX = new System.Windows.Forms.TextBox();
             this.btnTaillePieceValider = new System.Windows.Forms.Button();
-            this.lblNbrPorte = new System.Windows.Forms.Label();
+            this.btnSynchroniser = new System.Windows.Forms.Button();
+            this.btnDeplacePortes = new System.Windows.Forms.Button();
+            this.cmsMenuPorte = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.supprmierPorte = new System.Windows.Forms.ToolStripMenuItem();
+            this.changerNumeroPorte = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.NUPNbrPorte)).BeginInit();
             this.pnlTaillePiece.SuspendLayout();
+            this.cmsMenuPorte.SuspendLayout();
             this.SuspendLayout();
             // 
-            // btnEnvoi
+            // txtReception
             // 
-            this.btnEnvoi.Location = new System.Drawing.Point(138, 281);
-            this.btnEnvoi.Name = "btnEnvoi";
-            this.btnEnvoi.Size = new System.Drawing.Size(75, 23);
-            this.btnEnvoi.TabIndex = 0;
-            this.btnEnvoi.Text = "Envoyer";
-            this.btnEnvoi.UseVisualStyleBackColor = true;
-            this.btnEnvoi.Click += new System.EventHandler(this.envoyer);
-            // 
-            // txtEnvoi
-            // 
-            this.txtEnvoi.Location = new System.Drawing.Point(98, 77);
-            this.txtEnvoi.Multiline = true;
-            this.txtEnvoi.Name = "txtEnvoi";
-            this.txtEnvoi.Size = new System.Drawing.Size(158, 131);
-            this.txtEnvoi.TabIndex = 1;
+            this.txtReception.Location = new System.Drawing.Point(52, 184);
+            this.txtReception.Multiline = true;
+            this.txtReception.Name = "txtReception";
+            this.txtReception.Size = new System.Drawing.Size(158, 131);
+            this.txtReception.TabIndex = 1;
             // 
             // lblsortie
             // 
             this.lblsortie.AutoSize = true;
-            this.lblsortie.Location = new System.Drawing.Point(326, 105);
+            this.lblsortie.Location = new System.Drawing.Point(268, 105);
             this.lblsortie.Name = "lblsortie";
-            this.lblsortie.Size = new System.Drawing.Size(38, 13);
+            this.lblsortie.Size = new System.Drawing.Size(45, 13);
             this.lblsortie.TabIndex = 2;
-            this.lblsortie.Text = "sortie :";
+            this.lblsortie.Text = "Sorties :";
             // 
             // lblentree
             // 
             this.lblentree.AutoSize = true;
-            this.lblentree.Location = new System.Drawing.Point(326, 142);
+            this.lblentree.Location = new System.Drawing.Point(268, 132);
             this.lblentree.Name = "lblentree";
-            this.lblentree.Size = new System.Drawing.Size(43, 13);
+            this.lblentree.Size = new System.Drawing.Size(49, 13);
             this.lblentree.TabIndex = 3;
-            this.lblentree.Text = "entree :";
+            this.lblentree.Text = "Entrées :";
             // 
             // lblTotal
             // 
             this.lblTotal.AutoSize = true;
-            this.lblTotal.Location = new System.Drawing.Point(315, 197);
+            this.lblTotal.Location = new System.Drawing.Point(268, 161);
             this.lblTotal.Name = "lblTotal";
             this.lblTotal.Size = new System.Drawing.Size(37, 13);
             this.lblTotal.TabIndex = 4;
@@ -106,24 +101,24 @@
             // cbPorts
             // 
             this.cbPorts.FormattingEnabled = true;
-            this.cbPorts.Location = new System.Drawing.Point(358, 56);
+            this.cbPorts.Location = new System.Drawing.Point(8, 13);
             this.cbPorts.Name = "cbPorts";
             this.cbPorts.Size = new System.Drawing.Size(121, 21);
             this.cbPorts.TabIndex = 8;
             // 
             // btnConnexion
             // 
-            this.btnConnexion.Location = new System.Drawing.Point(485, 56);
+            this.btnConnexion.Location = new System.Drawing.Point(135, 13);
             this.btnConnexion.Name = "btnConnexion";
             this.btnConnexion.Size = new System.Drawing.Size(75, 23);
             this.btnConnexion.TabIndex = 9;
             this.btnConnexion.Text = "Connexion";
             this.btnConnexion.UseVisualStyleBackColor = true;
-            this.btnConnexion.Click += new System.EventHandler(this.Connexion);
+            this.btnConnexion.Click += new System.EventHandler(this.DetectionAutoESP32);
             // 
             // btnDeconnexion
             // 
-            this.btnDeconnexion.Location = new System.Drawing.Point(485, 85);
+            this.btnDeconnexion.Location = new System.Drawing.Point(135, 42);
             this.btnDeconnexion.Name = "btnDeconnexion";
             this.btnDeconnexion.Size = new System.Drawing.Size(84, 23);
             this.btnDeconnexion.TabIndex = 10;
@@ -133,7 +128,7 @@
             // 
             // NUPNbrPorte
             // 
-            this.NUPNbrPorte.Location = new System.Drawing.Point(42, 158);
+            this.NUPNbrPorte.Location = new System.Drawing.Point(44, 121);
             this.NUPNbrPorte.Maximum = new decimal(new int[] {
             10,
             0,
@@ -164,7 +159,7 @@
             // 
             // btnEdition
             // 
-            this.btnEdition.Location = new System.Drawing.Point(290, 354);
+            this.btnEdition.Location = new System.Drawing.Point(919, 22);
             this.btnEdition.Name = "btnEdition";
             this.btnEdition.Size = new System.Drawing.Size(75, 23);
             this.btnEdition.TabIndex = 13;
@@ -190,10 +185,19 @@
             this.pnlTaillePiece.Size = new System.Drawing.Size(123, 546);
             this.pnlTaillePiece.TabIndex = 14;
             // 
+            // lblNbrPorte
+            // 
+            this.lblNbrPorte.AutoSize = true;
+            this.lblNbrPorte.Location = new System.Drawing.Point(19, 104);
+            this.lblNbrPorte.Name = "lblNbrPorte";
+            this.lblNbrPorte.Size = new System.Drawing.Size(91, 13);
+            this.lblNbrPorte.TabIndex = 15;
+            this.lblNbrPorte.Text = "Nombre de portes";
+            // 
             // lblTailleX
             // 
             this.lblTailleX.AutoSize = true;
-            this.lblTailleX.Location = new System.Drawing.Point(37, 8);
+            this.lblTailleX.Location = new System.Drawing.Point(43, 8);
             this.lblTailleX.Name = "lblTailleX";
             this.lblTailleX.Size = new System.Drawing.Size(43, 13);
             this.lblTailleX.TabIndex = 4;
@@ -202,7 +206,7 @@
             // lblTailleY
             // 
             this.lblTailleY.AutoSize = true;
-            this.lblTailleY.Location = new System.Drawing.Point(37, 51);
+            this.lblTailleY.Location = new System.Drawing.Point(42, 51);
             this.lblTailleY.Name = "lblTailleY";
             this.lblTailleY.Size = new System.Drawing.Size(45, 13);
             this.lblTailleY.TabIndex = 3;
@@ -210,42 +214,77 @@
             // 
             // txtTailleY
             // 
-            this.txtTailleY.Location = new System.Drawing.Point(12, 67);
+            this.txtTailleY.Location = new System.Drawing.Point(14, 67);
             this.txtTailleY.Name = "txtTailleY";
             this.txtTailleY.Size = new System.Drawing.Size(100, 20);
             this.txtTailleY.TabIndex = 2;
+            this.txtTailleY.TextChanged += new System.EventHandler(this.validerTaillePiece);
             // 
             // txtTailleX
             // 
-            this.txtTailleX.Location = new System.Drawing.Point(12, 24);
+            this.txtTailleX.Location = new System.Drawing.Point(14, 24);
             this.txtTailleX.Name = "txtTailleX";
             this.txtTailleX.Size = new System.Drawing.Size(100, 20);
             this.txtTailleX.TabIndex = 1;
+            this.txtTailleX.TextChanged += new System.EventHandler(this.validerTaillePiece);
             // 
             // btnTaillePieceValider
             // 
-            this.btnTaillePieceValider.Location = new System.Drawing.Point(27, 99);
+            this.btnTaillePieceValider.Location = new System.Drawing.Point(27, 160);
             this.btnTaillePieceValider.Name = "btnTaillePieceValider";
             this.btnTaillePieceValider.Size = new System.Drawing.Size(75, 23);
             this.btnTaillePieceValider.TabIndex = 0;
             this.btnTaillePieceValider.Text = "Valider";
             this.btnTaillePieceValider.UseVisualStyleBackColor = true;
-            this.btnTaillePieceValider.Click += new System.EventHandler(this.validerTaillePiece);
+            this.btnTaillePieceValider.Click += new System.EventHandler(this.mode_Edition_click);
             // 
-            // lblNbrPorte
+            // btnSynchroniser
             // 
-            this.lblNbrPorte.AutoSize = true;
-            this.lblNbrPorte.Location = new System.Drawing.Point(19, 141);
-            this.lblNbrPorte.Name = "lblNbrPorte";
-            this.lblNbrPorte.Size = new System.Drawing.Size(91, 13);
-            this.lblNbrPorte.TabIndex = 15;
-            this.lblNbrPorte.Text = "Nombre de portes";
+            this.btnSynchroniser.Location = new System.Drawing.Point(313, 47);
+            this.btnSynchroniser.Name = "btnSynchroniser";
+            this.btnSynchroniser.Size = new System.Drawing.Size(83, 23);
+            this.btnSynchroniser.TabIndex = 15;
+            this.btnSynchroniser.Text = "Synchroniser";
+            this.btnSynchroniser.UseVisualStyleBackColor = true;
+            this.btnSynchroniser.Click += new System.EventHandler(this.synchroData);
+            // 
+            // btnDeplacePortes
+            // 
+            this.btnDeplacePortes.Location = new System.Drawing.Point(571, 88);
+            this.btnDeplacePortes.Name = "btnDeplacePortes";
+            this.btnDeplacePortes.Size = new System.Drawing.Size(108, 30);
+            this.btnDeplacePortes.TabIndex = 16;
+            this.btnDeplacePortes.Text = "Déplacer les portes";
+            this.btnDeplacePortes.UseVisualStyleBackColor = true;
+            this.btnDeplacePortes.Click += new System.EventHandler(this.deplacePorteMode);
+            // 
+            // cmsMenuPorte
+            // 
+            this.cmsMenuPorte.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.supprmierPorte,
+            this.changerNumeroPorte});
+            this.cmsMenuPorte.Name = "cmsMenuPorte";
+            this.cmsMenuPorte.Size = new System.Drawing.Size(181, 70);
+            // 
+            // supprmierPorte
+            // 
+            this.supprmierPorte.Name = "supprmierPorte";
+            this.supprmierPorte.Size = new System.Drawing.Size(180, 22);
+            this.supprmierPorte.Text = "Supprimer";
+            // 
+            // changerNumeroPorte
+            // 
+            this.changerNumeroPorte.Name = "changerNumeroPorte";
+            this.changerNumeroPorte.Size = new System.Drawing.Size(180, 22);
+            this.changerNumeroPorte.Text = "Changer le numéro";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1123, 546);
+            this.Controls.Add(this.btnDeplacePortes);
+            this.Controls.Add(this.btnSynchroniser);
             this.Controls.Add(this.pnlTaillePiece);
             this.Controls.Add(this.btnEdition);
             this.Controls.Add(this.PnlPiece);
@@ -255,26 +294,24 @@
             this.Controls.Add(this.lblTotal);
             this.Controls.Add(this.lblentree);
             this.Controls.Add(this.lblsortie);
-            this.Controls.Add(this.txtEnvoi);
-            this.Controls.Add(this.btnEnvoi);
+            this.Controls.Add(this.txtReception);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.Text = "Visualisation";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.LoadForm);
-            this.Shown += new System.EventHandler(this.Detection);
+            this.Shown += new System.EventHandler(this.DetectionAutoESP32);
             ((System.ComponentModel.ISupportInitialize)(this.NUPNbrPorte)).EndInit();
             this.pnlTaillePiece.ResumeLayout(false);
             this.pnlTaillePiece.PerformLayout();
+            this.cmsMenuPorte.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Button btnEnvoi;
-        private System.Windows.Forms.TextBox txtEnvoi;
+        private System.Windows.Forms.TextBox txtReception;
         private System.Windows.Forms.Label lblsortie;
         private System.Windows.Forms.Label lblentree;
         private System.Windows.Forms.Label lblTotal;
@@ -292,6 +329,11 @@
         private System.Windows.Forms.Label lblTailleX;
         private System.Windows.Forms.Label lblTailleY;
         private System.Windows.Forms.Label lblNbrPorte;
+        private System.Windows.Forms.Button btnSynchroniser;
+        private System.Windows.Forms.Button btnDeplacePortes;
+        private System.Windows.Forms.ContextMenuStrip cmsMenuPorte;
+        private System.Windows.Forms.ToolStripMenuItem supprmierPorte;
+        private System.Windows.Forms.ToolStripMenuItem changerNumeroPorte;
     }
 }
 
