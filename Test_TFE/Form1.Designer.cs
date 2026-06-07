@@ -310,6 +310,7 @@
             this.Name = "Form1";
             this.Text = "Visualisation";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.avantQuitter);
             this.Load += new System.EventHandler(this.LoadForm);
             this.Shown += new System.EventHandler(this.DetectionAutoESP32);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.devMode_KeyDown);

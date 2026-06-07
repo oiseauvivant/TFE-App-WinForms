@@ -213,6 +213,12 @@ namespace Test_TFE
                             total++;
                             entree++;
                             lblentree.Text = "Entrées: " + entree.ToString();
+                            lblTotal.Text = "Total: " + total.ToString();
+
+                            if (int.Parse(id) == -1)
+                            {
+                                return;
+                            }
 
                             int index = int.Parse(id);
 
@@ -223,9 +229,18 @@ namespace Test_TFE
                         }
                         else if (sens == "0")
                         {
-                            total--;
+                            if (total > 0)
+                            {
+                                total--;
+                            }
                             sortie++;
                             lblsortie.Text = "Sorties: " + sortie.ToString();
+                            lblTotal.Text = "Total: " + total.ToString();
+
+                            if (int.Parse(id) == -1)
+                            {
+                                return;
+                            }
 
                             int index = int.Parse(id);
 
@@ -234,8 +249,6 @@ namespace Test_TFE
                                 clignoPorteSortie(listePanelsPorte[index]);
                             }
                         }
-
-                        lblTotal.Text = "Total: " + total.ToString();
                     }
 
                     if (messageRecu.StartsWith("SYNCHRO"))
@@ -333,8 +346,6 @@ namespace Test_TFE
                 pnlTaillePiece.Enabled = false;
             }
         }
-
-
 
         private void validerTaillePiece(object sender, EventArgs e)
         {
@@ -537,6 +548,24 @@ namespace Test_TFE
             else
             {
                 txtReception.Visible = false;
+            }
+        }
+
+        private void avantQuitter(object sender, FormClosingEventArgs e)
+        {
+            try
+            {
+                if (serialPort != null && serialPort.IsOpen)
+                {
+                    serialPort.WriteLine("DECONNEXION"); // Envoie un message de déconnexion à l'ESP32
+                    serialPort.BaseStream.Flush();
+                    serialPort.Close();
+                    MessageBox.Show("Déconnexion réussie.");
+                }
+            }
+            catch
+            {
+
             }
         }
     }
