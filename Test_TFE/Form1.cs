@@ -19,6 +19,8 @@ namespace Test_TFE
         int total = 0;
         int entree = 0;
         int sortie = 0;
+        int[] portesEntree = new int[10];
+        int[] portesSortie = new int[10];
         bool modeEdition = false;
         bool modeEditionPortes = false;
         bool devMode = false;
@@ -106,6 +108,16 @@ namespace Test_TFE
                 PnlPiece.Controls.Remove(p);
                 listePanelsPorte.RemoveAt(listePanelsPorte.Count - 1);
             }
+
+            listViewPortes.Items.Clear();
+            for (int i = 0; i < listePanelsPorte.Count; i++)
+            {
+                ListViewItem item = new ListViewItem(i.ToString());
+                item.SubItems.Add(portesEntree[i].ToString());
+                item.SubItems.Add(portesSortie[i].ToString());
+                listViewPortes.Items.Add(item);
+            }
+            listViewPortes.Height = (listePanelsPorte.Count * listViewPortes.Items[0].Bounds.Height) + 27;
         }
 
         protected override void WndProc(ref Message m)
@@ -215,6 +227,8 @@ namespace Test_TFE
                             lblentree.Text = "Entrées: " + entree.ToString();
                             lblTotal.Text = "Total: " + total.ToString();
 
+                            portesEntree[int.Parse(id)]++;
+
                             if (int.Parse(id) == -1)
                             {
                                 return;
@@ -236,6 +250,8 @@ namespace Test_TFE
                             sortie++;
                             lblsortie.Text = "Sorties: " + sortie.ToString();
                             lblTotal.Text = "Total: " + total.ToString();
+
+                            portesSortie[int.Parse(id)]++;
 
                             if (int.Parse(id) == -1)
                             {
@@ -269,6 +285,32 @@ namespace Test_TFE
                         lblTotal.Text = "Total: " + total.ToString();
 
                     }
+
+                    if (messageRecu.StartsWith("PORTES:"))
+                    {
+                        messageRecu = messageRecu.Substring(7);
+
+                        var parts = messageRecu.Split(';');
+                        var entreeStr = parts[0].Split(',');
+                        var sortieStr = parts[1].Split(',');
+
+                        for (int i = 0; i < entreeStr.Length; i++)
+                        {
+                            portesEntree[i] = int.Parse(entreeStr[i]);
+                        }
+
+                        for (int i = 0; i < sortieStr.Length; i++)
+                        {
+                            portesSortie[i] = int.Parse(sortieStr[i]);
+                        }
+                    }
+
+                    for (int i = 0; i < listePanelsPorte.Count; i++)
+                    {
+                        listViewPortes.Items[i].SubItems[1].Text = portesEntree[i].ToString();
+                        listViewPortes.Items[i].SubItems[2].Text = portesSortie[i].ToString();
+                    }
+
                 }));
 
             }
@@ -329,6 +371,12 @@ namespace Test_TFE
             CreerPortePanels();
             txtTailleX.Text = PnlPiece.Width.ToString();
             txtTailleY.Text = PnlPiece.Height.ToString();
+
+            listViewPortes.ColumnWidthChanging += (s, args) =>
+            {
+                args.Cancel = true;
+                args.NewWidth = listViewPortes.Columns[args.ColumnIndex].Width;
+            };
         }
 
         private void mode_Edition_click(object sender, EventArgs e)
@@ -339,11 +387,13 @@ namespace Test_TFE
             {
                 btnEdition.BackColor = Color.Orange;
                 pnlTaillePiece.Enabled = true;
+                pnlTaillePiece.Visible = true;
             }
             else
             {
                 btnEdition.BackColor = SystemColors.Control;
                 pnlTaillePiece.Enabled = false;
+                pnlTaillePiece.Visible = false;
             }
         }
 

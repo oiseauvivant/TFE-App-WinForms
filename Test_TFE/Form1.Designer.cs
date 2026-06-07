@@ -53,6 +53,10 @@
             this.supprmierPorte = new System.Windows.Forms.ToolStripMenuItem();
             this.changerNumeroPorte = new System.Windows.Forms.ToolStripMenuItem();
             this.cbChangerNumeroPorte = new System.Windows.Forms.ToolStripComboBox();
+            this.listViewPortes = new System.Windows.Forms.ListView();
+            this.colonnePorte = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colonneEntree = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colonneSortie = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             ((System.ComponentModel.ISupportInitialize)(this.NUPNbrPorte)).BeginInit();
             this.pnlTaillePiece.SuspendLayout();
             this.cmsMenuPorte.SuspendLayout();
@@ -182,6 +186,7 @@
             this.pnlTaillePiece.Name = "pnlTaillePiece";
             this.pnlTaillePiece.Size = new System.Drawing.Size(123, 546);
             this.pnlTaillePiece.TabIndex = 14;
+            this.pnlTaillePiece.Visible = false;
             // 
             // lblNbrPorte
             // 
@@ -288,11 +293,47 @@
             this.cbChangerNumeroPorte.Size = new System.Drawing.Size(121, 23);
             this.cbChangerNumeroPorte.SelectedIndexChanged += new System.EventHandler(this.cbChangerNumeroPorte_Click);
             // 
+            // listViewPortes
+            // 
+            this.listViewPortes.BackColor = System.Drawing.SystemColors.Window;
+            this.listViewPortes.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.colonnePorte,
+            this.colonneEntree,
+            this.colonneSortie});
+            this.listViewPortes.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.listViewPortes.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.listViewPortes.FullRowSelect = true;
+            this.listViewPortes.GridLines = true;
+            this.listViewPortes.Location = new System.Drawing.Point(67, 360);
+            this.listViewPortes.MultiSelect = false;
+            this.listViewPortes.Name = "listViewPortes";
+            this.listViewPortes.Scrollable = false;
+            this.listViewPortes.Size = new System.Drawing.Size(203, 161);
+            this.listViewPortes.TabIndex = 17;
+            this.listViewPortes.UseCompatibleStateImageBehavior = false;
+            this.listViewPortes.View = System.Windows.Forms.View.Details;
+            // 
+            // colonnePorte
+            // 
+            this.colonnePorte.Text = "Porte";
+            // 
+            // colonneEntree
+            // 
+            this.colonneEntree.Text = "Entrées";
+            this.colonneEntree.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.colonneEntree.Width = 80;
+            // 
+            // colonneSortie
+            // 
+            this.colonneSortie.Text = "Sortie";
+            this.colonneSortie.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1123, 546);
+            this.Controls.Add(this.listViewPortes);
             this.Controls.Add(this.btnDeplacePortes);
             this.Controls.Add(this.btnSynchroniser);
             this.Controls.Add(this.pnlTaillePiece);
@@ -348,6 +389,10 @@
         private System.Windows.Forms.ToolStripMenuItem supprmierPorte;
         private System.Windows.Forms.ToolStripMenuItem changerNumeroPorte;
         private System.Windows.Forms.ToolStripComboBox cbChangerNumeroPorte;
+        private System.Windows.Forms.ListView listViewPortes;
+        private System.Windows.Forms.ColumnHeader colonnePorte;
+        private System.Windows.Forms.ColumnHeader colonneEntree;
+        private System.Windows.Forms.ColumnHeader colonneSortie;
     }
 }
 
