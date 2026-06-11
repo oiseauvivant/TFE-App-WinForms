@@ -64,7 +64,7 @@
             // 
             // txtReception
             // 
-            this.txtReception.Location = new System.Drawing.Point(52, 184);
+            this.txtReception.Location = new System.Drawing.Point(827, 234);
             this.txtReception.Multiline = true;
             this.txtReception.Name = "txtReception";
             this.txtReception.Size = new System.Drawing.Size(158, 131);
@@ -74,29 +74,29 @@
             // lblsortie
             // 
             this.lblsortie.AutoSize = true;
-            this.lblsortie.Location = new System.Drawing.Point(268, 105);
+            this.lblsortie.Location = new System.Drawing.Point(225, 88);
             this.lblsortie.Name = "lblsortie";
-            this.lblsortie.Size = new System.Drawing.Size(45, 13);
+            this.lblsortie.Size = new System.Drawing.Size(54, 13);
             this.lblsortie.TabIndex = 2;
-            this.lblsortie.Text = "Sorties :";
+            this.lblsortie.Text = "Sorties : 0";
             // 
             // lblentree
             // 
             this.lblentree.AutoSize = true;
-            this.lblentree.Location = new System.Drawing.Point(268, 132);
+            this.lblentree.Location = new System.Drawing.Point(225, 105);
             this.lblentree.Name = "lblentree";
-            this.lblentree.Size = new System.Drawing.Size(49, 13);
+            this.lblentree.Size = new System.Drawing.Size(58, 13);
             this.lblentree.TabIndex = 3;
-            this.lblentree.Text = "Entrées :";
+            this.lblentree.Text = "Entrées : 0";
             // 
             // lblTotal
             // 
             this.lblTotal.AutoSize = true;
-            this.lblTotal.Location = new System.Drawing.Point(268, 161);
+            this.lblTotal.Location = new System.Drawing.Point(225, 124);
             this.lblTotal.Name = "lblTotal";
-            this.lblTotal.Size = new System.Drawing.Size(37, 13);
+            this.lblTotal.Size = new System.Drawing.Size(46, 13);
             this.lblTotal.TabIndex = 4;
-            this.lblTotal.Text = "Total :";
+            this.lblTotal.Text = "Total : 0";
             // 
             // cbPorts
             // 
@@ -154,14 +154,14 @@
             // PnlPiece
             // 
             this.PnlPiece.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.PnlPiece.Location = new System.Drawing.Point(436, 159);
+            this.PnlPiece.Location = new System.Drawing.Point(357, 138);
             this.PnlPiece.Name = "PnlPiece";
-            this.PnlPiece.Size = new System.Drawing.Size(385, 298);
+            this.PnlPiece.Size = new System.Drawing.Size(385, 307);
             this.PnlPiece.TabIndex = 12;
             // 
             // btnEdition
             // 
-            this.btnEdition.Location = new System.Drawing.Point(919, 22);
+            this.btnEdition.Location = new System.Drawing.Point(228, 215);
             this.btnEdition.Name = "btnEdition";
             this.btnEdition.Size = new System.Drawing.Size(75, 23);
             this.btnEdition.TabIndex = 13;
@@ -243,7 +243,7 @@
             // 
             // btnSynchroniser
             // 
-            this.btnSynchroniser.Location = new System.Drawing.Point(313, 47);
+            this.btnSynchroniser.Location = new System.Drawing.Point(225, 150);
             this.btnSynchroniser.Name = "btnSynchroniser";
             this.btnSynchroniser.Size = new System.Drawing.Size(83, 23);
             this.btnSynchroniser.TabIndex = 15;
@@ -253,7 +253,7 @@
             // 
             // btnDeplacePortes
             // 
-            this.btnDeplacePortes.Location = new System.Drawing.Point(571, 88);
+            this.btnDeplacePortes.Location = new System.Drawing.Point(225, 179);
             this.btnDeplacePortes.Name = "btnDeplacePortes";
             this.btnDeplacePortes.Size = new System.Drawing.Size(108, 30);
             this.btnDeplacePortes.TabIndex = 16;
@@ -304,7 +304,8 @@
             this.listViewPortes.ForeColor = System.Drawing.SystemColors.WindowText;
             this.listViewPortes.FullRowSelect = true;
             this.listViewPortes.GridLines = true;
-            this.listViewPortes.Location = new System.Drawing.Point(67, 360);
+            this.listViewPortes.HideSelection = false;
+            this.listViewPortes.Location = new System.Drawing.Point(16, 88);
             this.listViewPortes.MultiSelect = false;
             this.listViewPortes.Name = "listViewPortes";
             this.listViewPortes.Scrollable = false;
