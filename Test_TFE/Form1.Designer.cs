@@ -64,7 +64,7 @@
             // 
             // txtReception
             // 
-            this.txtReception.Location = new System.Drawing.Point(827, 234);
+            this.txtReception.Location = new System.Drawing.Point(16, 350);
             this.txtReception.Multiline = true;
             this.txtReception.Name = "txtReception";
             this.txtReception.Size = new System.Drawing.Size(158, 131);
