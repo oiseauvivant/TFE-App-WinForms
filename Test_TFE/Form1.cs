@@ -227,12 +227,14 @@ namespace Test_TFE
                             lblentree.Text = "Entrées: " + entree.ToString();
                             lblTotal.Text = "Total: " + total.ToString();
 
-                            portesEntree[int.Parse(id)]++;
-
                             if (int.Parse(id) == -1)
                             {
+
                                 return;
                             }
+
+                            portesEntree[int.Parse(id)]++;
+
 
                             int index = int.Parse(id);
 
@@ -251,12 +253,13 @@ namespace Test_TFE
                             lblsortie.Text = "Sorties: " + sortie.ToString();
                             lblTotal.Text = "Total: " + total.ToString();
 
-                            portesSortie[int.Parse(id)]++;
-
                             if (int.Parse(id) == -1)
                             {
                                 return;
                             }
+
+                            portesSortie[int.Parse(id)]++;
+
 
                             int index = int.Parse(id);
 
