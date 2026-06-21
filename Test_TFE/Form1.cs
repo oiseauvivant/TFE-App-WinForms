@@ -137,6 +137,8 @@ namespace Test_TFE
                 else if (m.WParam.ToInt32() == DBT_DEVICEREMOVECOMPLETE)
                 {
                     // Un appareil vient d'être débranché
+                    btnConnexion.Enabled = true;
+                    btnDeconnexion.Enabled = false;
                     this.Text = "Déconnecté";
                     LoadPorts();
                 }
@@ -186,7 +188,7 @@ namespace Test_TFE
             {
                 using (SerialPort testPort = new SerialPort(portName, 115200))
                 {
-                    testPort.ReadTimeout = 1000; // Timeout de lecture de 1 seconde
+                    testPort.ReadTimeout = 2000; // Timeout de lecture de 1 seconde
                     testPort.Open();
                     testPort.DiscardInBuffer();
                     testPort.DiscardOutBuffer();
